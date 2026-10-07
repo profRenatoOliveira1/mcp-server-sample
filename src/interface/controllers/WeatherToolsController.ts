@@ -16,14 +16,16 @@ export class WeatherToolsController {
   }
 
   private registerGetAlertsToolhandler(): void {
-    this.server.tool(
+    this.server.registerTool(
       "get-alerts",
-      "Get weather alerts for a state",
       {
-        state: z
-          .string()
-          .length(2)
-          .describe("Two-letter state code (e.g. CA, NY)"),
+        description: "Get weather alerts for a state",
+        inputSchema: {
+          state: z
+            .string()
+            .length(2)
+            .describe("Two-letter state code (e.g. CA, NY)"),
+        },
       },
       async ({ state }) => {
         const alertsText = await this.weatherService.getAlertsForState(state);
@@ -41,20 +43,22 @@ export class WeatherToolsController {
   }
 
   private registerGetForecastToolHandler(): void {
-    this.server.tool(
+    this.server.registerTool(
       "get-forecast",
-      "Get weather forecast for a location",
       {
-        latitude: z
-          .number()
-          .min(-90)
-          .max(90)
-          .describe("Latitude of the location"),
-        longitude: z
-          .number()
-          .min(-180)
-          .max(180)
-          .describe("Longitude of the location"),
+        description: "Get weather forecast for a location",
+        inputSchema: {
+          latitude: z
+            .number()
+            .min(-90)
+            .max(90)
+            .describe("Latitude of the location"),
+          longitude: z
+            .number()
+            .min(-180)
+            .max(180)
+            .describe("Longitude of the location"),
+        },
       },
       async ({ latitude, longitude }) => {
         const forecastText = await this.weatherService.getForecastForLocation(

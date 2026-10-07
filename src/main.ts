@@ -6,14 +6,18 @@ import { WeatherToolsController } from "./interface/controllers/WeatherToolsCont
 
 async function main() {
   // Criação da instância do servidor MCP
-  const server = new McpServer({
-    name: "weather",
-    version: "1.0.0",
-    capabilities: {
-      resources: {},
-      tools: {},
+  const server = new McpServer(
+    {
+      name: "weather",
+      version: "1.0.0",
     },
-  });
+    {
+      capabilities: {
+        resources: {},
+        tools: {},
+      },
+    }
+  );
 
   // Inicializando serviços e controladores
   const nwsApiService = new NWSApiService();
